@@ -1,0 +1,133 @@
+
+<style>
+	.loginformbody{
+		background-color: #f5f5f5;
+		padding-left: 25%;
+		padding-right: 25%;
+		padding-top: 10%;
+		padding-bottom: 10%;
+	}
+
+	.box{
+		height: 100%;
+		width: 100%;
+		background-color: white;
+		padding: 0;
+		margin: 0;
+	}
+
+	.tab-pane{
+		text-align: center;
+		padding: 10%;
+		border-left: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+		border-radius: 0px;		
+	}
+
+	.nav-tabs.centered{
+		display: flex;
+		justify-content: center;
+		border-radius: 0 !important;
+		-moz-border-radius: 0 !important;
+		
+	}
+
+	.navlink{
+		padding: 0;
+		margin: 0;
+		width: 50%;
+		-webkit-border-radius: 0;
+		-moz-border-radius: 0;
+		border-radius: 0;
+
+	}
+
+	.centered > li > a {
+		border-radius: 0 !important;
+		-moz-border-radius: 0 !important;
+	}
+
+	.nav-tabs.centered {
+		text-align:center;
+	}
+
+	.buttonsignin{
+		width: 40%;
+	}
+
+</style>
+
+
+<div class="loginformbody">
+	
+	<div class="box">
+		<ul class="nav nav-tabs centered" role="tablist">
+			<li class="nav-item navlink">
+				<a class="nav-link active" data-toggle="tab" href="" data-target="#Signin" role="tab">SIGN IN</a>
+			</li>
+			<li class="nav-item navlink">
+				<a class="nav-link" data-toggle="tab" href="" data-target="#Signup" role="tab">SIGN UP</a>
+			</li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="Signin" role="tabpanel">
+				<form>
+					<h3>Log Into Your Account</h3><br>
+					<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+					<br>
+					<div class="form-group">
+						<input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your Email" required="true" ng-model="main.loginData.email">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password" required="true" ng-model="main.loginData.password">
+					</div>
+					<br>
+					<button class="btn btn-info buttonsignin" ng-click="main.doLogin()">SIGN IN</button><br><br>
+					Forget Your Password?
+				</form>
+			</div>
+			<div class="tab-pane" id="Signup" role="tabpanel" ng-controller="UserCreateController as userCtrl">
+				<div ng-if="!userCtrl.processing">
+					<form>
+						<h3>Create Your Account</h3><br>
+						<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+						<br>
+						<div class="form-group">
+
+							<input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name" ng-model="userCtrl.userData.name">
+						</div>
+						<div class="form-group">
+
+							<input type="email" class="form-control" id="formGroupExampleInput2" placeholder="Email" ng-model="userCtrl.userData.email">
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">
+
+									<input type="password" class="form-control" id="formGroupExampleInput" placeholder="Password" ng-model="userCtrl.userData.password">
+								</div>
+							</div>	
+							<div class="col-md-6 col-sm-12">	
+								<div class="form-group">
+
+									<input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Mobile Number" ng-model="userCtrl.userData.mobile">
+								</div>
+							</div>	
+
+						</div>
+						<br>
+						<button class="btn btn-info buttonsignin" ng-click="userCtrl.signupUser()">SIGN UP</button><br>
+					</form>
+				</div>
+				<div class="processing" ng-if="userCtrl.processing">
+					<img src="../icons/consulto-icons/ring.gif">
+					Processing
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
