@@ -14,6 +14,9 @@ angular.module('appRoutes', ['ngRoute'])
     .when('/market', {
       templateUrl: 'app/views/pages/market.html'
     })
+    .when('/calendar', {
+      templateUrl: 'app/views/pages/calendar.html'
+    })
 
 	$locationProvider.html5Mode(true);
 

@@ -1,43 +1,73 @@
 <div class="appointmentbody" ng-controller="AppointmentController as aptCtrl">
-	<div ng-init="aptCtrl.useremailid = main.user.email">
-		<div class="row row1">
-			<div class="col-md-6 request">
-				<div class="box">
-				<h3>Create Appointment</h3>
-				<br><br>
-					<div class="input-group">
-						<span class="input-group-addon">
+    <div ng-init="aptCtrl.useremailid = main.user.email">
+        <div class="row row1">
+            <div class="col-md-6 request">
+                <div class="box">
+                    <h3>Create Appointment</h3>
+                    <br>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">
 							Title
 						</span>
-						<input type="text" class="form-control" ng-model="aptCtrl.appointmentData.title">
-					</div>
-					<br>
-					<div class="form-group input-group">
-						
-						<input type="text" class="form-control" placeholder="Enter email(s)" ng-model="aptCtrl.newemail">
-						<span class="input-group-btn">
+                        <input type="text" class="form-control" ng-model="aptCtrl.appointmentData.title">
+                    </div>
+                    <br>
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control" placeholder="Enter email(s)" ng-model="aptCtrl.newemail">
+                        <span class="input-group-btn">
 							<button class="btn btn-secondary" type="button" ng-click="aptCtrl.addemail()">+</button>
 						</span>
-					</div>
-					<span  ng-repeat="email in aptCtrl.emailids" >
+                    </div>
+                    <span ng-repeat="email in aptCtrl.emailids">
 						<button class="btn btn-secondary btn-xs" disabled>{{ email }}</button>&nbsp
 					</span>
-					<br>
-					<div class="input-group">
-						<span class="input-group-addon">
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">
 							Schedule
 						</span>
-						<input type="datetime-local" class="form-control" ng-model="aptCtrl.appointmentData.schedule">
-					</div>
+                        <input type="datetime-local" class="form-control" ng-model="aptCtrl.appointmentData.schedule">
+                    </div>
+                    <br>
+                    <button class="btn btn-success" ng-click="aptCtrl.createappointment()">Send</button>
+                </div>
+            </div>
+            <div class="col-md-6 accept">
+            <br><br>
+                <div ng-controller="CalendarController" >    <br class="visible-xs visible-sm">
 
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'year'" ng-click="cellIsOpen = false">Year</label>
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'month'" ng-click="cellIsOpen = false">Month</label>
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'week'" ng-click="cellIsOpen = false">Week</label>
+        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'day'" ng-click="cellIsOpen = false">Day</label>
+      </div>
+    </div>
 
-					
-					<br>
-					<button class="btn btn-success" ng-click="aptCtrl.createappointment()">Send</button>
-				</div>
-			</div>
-			<div class="col-md-6 accept">
-				<br><br><br>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div class="btn-group">
+                                <button class="btn btn-primary" mwl-date-modifier date="viewDate" decrement="calendarView">
+                                    Previous
+                                </button>
+                                <button class="btn btn-default" mwl-date-modifier date="viewDate" set-to-today>
+                                    Today
+                                </button>
+                                <button class="btn btn-primary" mwl-date-modifier date="viewDate" increment="calendarView">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                        <br class="visible-xs visible-sm">
+                    </div>
+                    <div>
+                        <mwl-calendar view="calendarView" view-date="viewDate" events="events" view-title="calendarTitle" on-event-click="eventClicked(calendarEvent)" on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd" cell-is-open="true">
+                        </mwl-calendar>
+                    </div>
+                </div>
+                <!-- 				<br><br><br>
 
 				<ul class="nav nav-tabs" role="tablist" id="myTab">
 					<li class="nav-item">
@@ -53,7 +83,7 @@
 						<div  ng-repeat="app in aptCtrl.appointments | orderBy:'-schedule'">
 							<div class="boxwidth" ng-if="app.mainuser.email==aptCtrl.useremailid" >
 								<h3>{{app.title}}</h3>
-								<b>When</b> : {{app.schedule | date: 'EEEE MMM d, y H:mm:ss a' : '+0530'}}	
+								<b>When</b> : {{app.schedule | date: 'EEEE MMM d, y H:mm:ss a' : '+0530'}}
 								<br>
 								<b>With whom</b> : <span ng-repeat="invite in app.confirmeduser"><button  class="btn btn-xs-c btn-secondary" disabled>{{invite}}</button>&nbsp</span><span ng-repeat="invite in app.inviteduser"><button  class="btn btn-xs btn-secondary" disabled>{{invite}}</button>&nbsp</span>
 								<div><b>Status</b>: {{app.status}} </div>
@@ -66,7 +96,7 @@
 						<div  ng-repeat="app in aptCtrl.appointments | orderBy:'-schedule'">
 							<div class="boxwidth" ng-if="app.mainuser.email!=aptCtrl.useremailid" >
 								<h3>{{app.title}}</h3>
-								<b>When</b> : {{app.schedule | date: 'EEEE MMM d, y H:mm:ss a' : '+0530'}}	
+								<b>When</b> : {{app.schedule | date: 'EEEE MMM d, y H:mm:ss a' : '+0530'}}
 								<br>
 								<b>With whom</b> : <span ng-repeat="invite in app.confirmeduser"><button  class="btn btn-xs-c btn-secondary" disabled>{{invite}}</button>&nbsp</span><span ng-repeat="invite in app.inviteduser"><button  class="btn btn-xs btn-secondary" disabled>{{invite}}</button>&nbsp</span>
 								<div><b>Status</b>: {{app.status}} </div>
@@ -75,82 +105,88 @@
 								<div ng-if="app.inviteduser | contains:aptCtrl.useremailid" >
 									<button class="btn btn-success btn-sm" ng-click="aptCtrl.accept(app._id)">Accept</button>
 									<button class="btn btn-danger btn-sm" ng-click="aptCtrl.reject(app._id)">Reject</button>
-								</div>	
+								</div>
 							</div>
 							<br>
 						</div>
 					</div>
-					
-				</div>
 
-			</div>
-		</div>
-	</div>
-
+				</div> -->
+            </div>
+        </div>
+    </div>
 </div>
-
 <style>
-	.appointmentbody{
-		background-color: #f5f5f5;
-		position: relative;
-		overflow: hidden;
-	}
-	.request{
-		text-align:center;
-		padding: 10%;		
-		height: 100vh;
-		position: relative;
-	}	
-	.box{
-		height: 100%;
-		width: 100%;
-		padding-top: 5%;
-		padding-bottom: 20%;
-		padding-left: 3%;
-		padding-right: 3%;
-		background-color: white;
-		box-shadow: 5px 5px 5px #d3d3d3;
-	}
-	.row1{
-		width: 100%;
+.appointmentbody {
+    background-color: #f5f5f5;
+    position: relative;
+    overflow: hidden;
+}
 
-	}
-	.btn-xs {
-		padding: 2px 4px;
-		font-size: 12px;
-		border-radius: 10px;
-	}
-	.btn-xs-c {
-		padding: 2px 4px;
-		font-size: 12px;
-		border-radius: 10px;
-		background-color: blue;
-	}
-	.boxwidth{
-		width: 100%;
-		height: auto;
-		padding: 2%;
-		background-color: white;
-		border-top: 1px solid #d3d3d3;
-		border-left: 1px solid #d3d3d3;
-		box-shadow: 5px 5px 5px #d3d3d3;
-	}
-	.accept{
-		border-left:1px solid #d0d0d0;
-		height: 100vh;
-	}
-	.btn-sm{
-		border-radius:0px;
-	}
-	.nav-item{
-		background-color: white;
-	}
-	.tab-content{
-		padding:5%;
-		border: 1px solid #d0d0d0;
-		border-top: none;
-		background-color: white;
-		height: 80%;
-		overflow-y: auto;
-	}
+.request {
+    text-align: center;
+    padding: 10%;
+    height: 100vh;
+    position: relative;
+}
+
+.box {
+    height: 100%;
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 20%;
+    padding-left: 3%;
+    padding-right: 3%;
+    background-color: white;
+    box-shadow: 5px 5px 5px #d3d3d3;
+}
+
+.row1 {
+    width: 100%;
+}
+
+.btn-xs {
+    padding: 2px 4px;
+    font-size: 12px;
+    border-radius: 10px;
+}
+
+.btn-xs-c {
+    padding: 2px 4px;
+    font-size: 12px;
+    border-radius: 10px;
+    background-color: blue;
+}
+
+.boxwidth {
+    width: 100%;
+    height: auto;
+    padding: 2%;
+    background-color: white;
+    border-top: 1px solid #d3d3d3;
+    border-left: 1px solid #d3d3d3;
+    box-shadow: 5px 5px 5px #d3d3d3;
+}
+
+.accept {
+    border-left: 1px solid #d0d0d0;
+    height: 100vh;
+}
+
+.btn-sm {
+    border-radius: 0px;
+}
+
+.nav-item {
+    background-color: white;
+}
+
+.tab-content {
+    padding: 5%;
+    border: 1px solid #d0d0d0;
+    border-top: none;
+    background-color: white;
+    height: 80%;
+    overflow-y: auto;
+}
 </style>

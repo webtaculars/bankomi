@@ -1,5 +1,5 @@
 angular.module('MyApp', ['appRoutes','userCtrl', 'mainCtrl', 'appointmentCtrl', 'userService', 'authService',
-	'appointmentService',  'angularMoment'])
+	'appointmentService',  'angularMoment','mwl.calendar','calendarCtrl'])
 
 .config(function($httpProvider) {
 

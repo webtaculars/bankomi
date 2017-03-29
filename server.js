@@ -51,7 +51,7 @@ cron.schedule('* * * * *', function(req, res){
 	Appointment.find({"status":'Confirmed', "active":0},function(err, result) {
 		if (err) {
 			return console.log(err)
-		} 
+		}
 		else {
 			result.forEach(function(element) {
 				element.confirmeduser.forEach(function(email){
@@ -93,7 +93,7 @@ cron.schedule('* * * * *', function(req, res){
     					}
 
     				})
-				
+
 			})
 
 		}

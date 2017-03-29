@@ -13,8 +13,8 @@ var moment = require('moment-timezone');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'email@email.com',
-        pass: 'password'
+        user: 'sahilchauhan224@gmail.com',
+        pass: 'pallavichauhan'
     }
 });
 
@@ -179,17 +179,6 @@ module.exports = function(app, express, io) {
             }
         })
 
-    })
-
-
-    api.post('/all_appointments', function(req, res) {
-        Appointment.find({}, function(err, result) {
-            if (err) {
-                return console.log(err)
-            } else {
-                res.json(result);
-            }
-        })
     })
 
 
